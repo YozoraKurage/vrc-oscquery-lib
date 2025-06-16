@@ -31,4 +31,5 @@ jobs:
         name: vrc-oscquery-lib-release-artifacts # アップロードされるアーティファクト名
         path: | # アップロードするファイルのパス (複数指定可能)
           vrc-oscquery-lib/bin/Release/net462/*.*
+          vrc-oscquery-lib/bin/Release/net462/Resources/*.*
         if-no-files-found: error # 対象ファイルが見つからない場合にエラーにする
