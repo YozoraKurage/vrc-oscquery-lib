@@ -159,36 +159,36 @@ namespace VRC.OSCQuery
             if (string.Compare(serviceName, OSCQueryService._localOscUdpServiceName, StringComparison.Ordinal) == 0 && !_profiles.ContainsValue(profile))
             {
                 // Make sure there's not already a service with the same name
-                OSCQueryServiceProfile p = null;
+                OSCQueryServiceProfile p_outer = null;
                 lock (_oscServices)
                 {
                     if (_oscServices.All(p => p.name != profile.InstanceName))
                     {
-                        p = new OSCQueryServiceProfile(instanceName, ipAddressList.First(), port, OSCQueryServiceProfile.ServiceType.OSC);
-                        _oscServices.Add(p);
+                        p_outer = new OSCQueryServiceProfile(instanceName, ipAddressList.First(), port, OSCQueryServiceProfile.ServiceType.OSC);
+                        _oscServices.Add(p_outer);
                     }
                 }
-                if (p != null)
+                if (p_outer != null)
                 {
-                    OnOscServiceAdded?.Invoke(p);
+                    OnOscServiceAdded?.Invoke(p_outer);
                 }
             }
             // If this is an OSCQuery service, add it to the OSCQuery collection
             else if (string.Compare(serviceName, OSCQueryService._localOscJsonServiceName, StringComparison.Ordinal) == 0 && !_profiles.ContainsValue(profile))
             {
                 // Make sure there's not already a service with the same name
-                OSCQueryServiceProfile p = null;
+                OSCQueryServiceProfile p_outer_alt = null;
                 lock (_oscQueryServices)
                 {
                     if (_oscQueryServices.All(p => !p.name.Equals(profile.InstanceName)))
                     {
-                        p = new OSCQueryServiceProfile(instanceName, ipAddressList.First(), port, OSCQueryServiceProfile.ServiceType.OSCQuery);
-                        _oscQueryServices.Add(p);
+                        p_outer_alt = new OSCQueryServiceProfile(instanceName, ipAddressList.First(), port, OSCQueryServiceProfile.ServiceType.OSCQuery);
+                        _oscQueryServices.Add(p_outer_alt);
                     }
                 }
-                if (p != null)
+                if (p_outer_alt != null)
                 {
-                    OnOscQueryServiceAdded?.Invoke(p);
+                    OnOscQueryServiceAdded?.Invoke(p_outer_alt);
                 }
             }
         }
